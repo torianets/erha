@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Моя книга</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="container">
+    <h1 id="book-title">Моя книга</h1>
+
+    <main id="chapter-content" aria-live="polite">
+      <!-- сюда будет подгружаться текст главы -->
+    </main>
+
+    <nav id="navigation" aria-label="Навигация по главам">
+      <button id="prev-btn" aria-label="Предыдущая">← Предыдущая</button>
+      <select id="chapter-select" aria-label="Выберите главу"></select>
+      <button id="next-btn" aria-label="Следующая">Следующая →</button>
+    </nav>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
