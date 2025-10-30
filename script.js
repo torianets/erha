@@ -32,17 +32,26 @@ async function loadChapter(index) {
   if (!chapters[index]) return;
   current = index;
   updateButtons();
+
   try {
     const res = await fetch(chapters[index].file);
     if (!res.ok) throw new Error('Не удалось загрузить файл главы');
     const text = await res.text();
 
-    // Форматируем текст:
-    const lines = text.trim().split(/\n\s*\n/); // разбиваем по пустым строкам
+    const lines = text
+      .replace(/\r/g, '') 
+      .trim()
+      .split(/\n\s*\n/);
+
+  
     const formatted = lines
-      .map((p, i) => (i === 0 && p.startsWith('#') 
-        ? `<h2>${p.replace(/^#\s*/, '')}</h2>` 
-        : `<p>${p.replace(/\n/g, ' ').trim()}</p>`))
+      .map(p => {
+        if (p.startsWith('# ')) {
+          return `<h2>${p.replace(/^#\s*/, '')}</h2>`;
+        } else {
+          return `<p>${p.replace(/\n/g, ' ').trim()}</p>`;
+        }
+      })
       .join('\n');
 
     contentDiv.innerHTML = formatted;
