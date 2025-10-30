@@ -35,8 +35,17 @@ async function loadChapter(index) {
   try {
     const res = await fetch(chapters[index].file);
     if (!res.ok) throw new Error('Не удалось загрузить файл главы');
-    const html = await res.text();
-    contentDiv.innerHTML = html;
+    const text = await res.text();
+
+    // Форматируем текст:
+    const lines = text.trim().split(/\n\s*\n/); // разбиваем по пустым строкам
+    const formatted = lines
+      .map((p, i) => (i === 0 && p.startsWith('#') 
+        ? `<h2>${p.replace(/^#\s*/, '')}</h2>` 
+        : `<p>${p.replace(/\n/g, ' ').trim()}</p>`))
+      .join('\n');
+
+    contentDiv.innerHTML = formatted;
     select.value = index;
     window.scrollTo({ top: 0, behavior: 'instant' });
   } catch (err) {
