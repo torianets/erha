@@ -1,0 +1,49 @@
+body {
+  font-family: 'Georgia', serif;
+  background-color: #f4f2ec;
+  color: #2b2b2b;
+  margin: 0;
+  padding: 20px;
+  line-height: 1.7;
+}
+
+#container {
+  max-width: 700px;
+  margin: 40px auto;
+  background: #fff;
+  padding: 36px;
+  border-radius: 12px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+#navigation {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 28px;
+}
+
+button, select {
+  background: #3e6b89;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+button:hover, select:hover {
+  background: #2e4f66;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
