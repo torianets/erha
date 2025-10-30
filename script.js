@@ -38,23 +38,22 @@ async function loadChapter(index) {
     if (!res.ok) throw new Error('Не удалось загрузить файл главы');
     const text = await res.text();
 
-    const lines = text
-      .replace(/\r/g, '') 
-      .trim()
-      .split(/\n\s*\n/);
+    // Убираем пробелы и разбиваем по строкам
+    const lines = text.replace(/\r/g, '').trim().split('\n');
 
-  
-    const formatted = lines
-      .map(p => {
-        if (p.startsWith('# ')) {
-          return `<h2>${p.replace(/^#\s*/, '')}</h2>`;
-        } else {
-          return `<p>${p.replace(/\n/g, ' ').trim()}</p>`;
-        }
-      })
-      .join('\n');
+    let html = '';
+    for (let line of lines) {
+      line = line.trim();
+      if (line.startsWith('# ')) {
+        html += `<h2>${line.replace(/^#\s*/, '')}</h2>`;
+      } else if (line === '') {
+        html += '<br>'; // пустая строка = визуальный отступ
+      } else {
+        html += `<p>${line}</p>`;
+      }
+    }
 
-    contentDiv.innerHTML = formatted;
+    contentDiv.innerHTML = html;
     select.value = index;
     window.scrollTo({ top: 0, behavior: 'instant' });
   } catch (err) {
@@ -62,6 +61,7 @@ async function loadChapter(index) {
     console.error(err);
   }
 }
+
 
 function updateButtons() {
   prevBtn.disabled = current <= 0;
